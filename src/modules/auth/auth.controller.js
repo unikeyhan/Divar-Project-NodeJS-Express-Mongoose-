@@ -13,9 +13,9 @@ class AuthController {
             this.#service.sendOTP();
             const { mobile } = req.body;
             await this.#service.sendOTP(mobile);
-            return {
+            return res.json({
                 message: SendOTPSuccessfully,
-            };
+            });
         } catch (error) {
             next(error);
         }
