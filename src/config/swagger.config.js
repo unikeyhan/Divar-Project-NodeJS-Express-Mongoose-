@@ -7,7 +7,7 @@ function SwaggerConfig(app) {
             openapi: '3.0.1',
             info: {
                 title: 'divar-backend',
-                description: 'botostart nodejs course',
+                description: 'keyhan try to do nodejs project',
                 version: '1.0.0',
             },
         },
