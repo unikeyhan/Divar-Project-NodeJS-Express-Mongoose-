@@ -9,8 +9,8 @@ class AuthController {
         this.#service = authService;
     }
     async sendOTP(req, res, next) {
+        debugger;
         try {
-            this.#service.sendOTP();
             const { mobile } = req.body;
             await this.#service.sendOTP(mobile);
             return res.json({
