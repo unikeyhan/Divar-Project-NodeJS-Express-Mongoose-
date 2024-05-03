@@ -17,7 +17,6 @@ class AuthService {
             code: randomInt(10000, 99999),
             expiresIn: now + 1000 * 60 * 2,
         };
-        // const user = await this.checkExistByMobile(mobile);
         if (!user) {
             const newUser = await this.#model.create({ mobile, otp });
             return newUser;
