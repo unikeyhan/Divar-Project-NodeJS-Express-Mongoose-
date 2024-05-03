@@ -23,7 +23,7 @@ class AuthService {
             return newUser;
         }
         if (user.otp && user.otp.expiresIn > now) {
-            return new createHttpError.BadRequest(OtpCodeNotExpired);
+            throw new createHttpError.BadRequest(OtpCodeNotExpired);
         }
         user.otp = otp;
         await user.save();
