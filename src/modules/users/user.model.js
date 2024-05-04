@@ -12,7 +12,7 @@ const UserSchema = new Schema(
         verifiedMobile: { type: Boolean, default: false, required: true },
         accessToken: { type: String },
     },
-    { timeStamp: true }
+    { timestamps: true }
 );
 
 const UserModel = model('user', UserSchema);
