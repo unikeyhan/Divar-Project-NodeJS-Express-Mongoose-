@@ -12,11 +12,11 @@ const CategorySchmea = new Schema(
 );
 
 CategorySchmea.virtual('children', {
-    ref: 'Categury',
+    ref: 'Category',
     localField: '_id',
     foreignField: 'parent',
 });
 
-const CategoryModel = model('categury', CategorySchmea);
+const CategoryModel = model('category', CategorySchmea);
 
 module.exports = CategoryModel;
