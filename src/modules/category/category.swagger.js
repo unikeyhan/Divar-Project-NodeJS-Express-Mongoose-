@@ -29,7 +29,7 @@
  * @swagger
  * /category:
  *  post:
- *      summary: create new categury
+ *      summary: create new category
  *      tags:
  *          -   Category
  *      requestBody:
