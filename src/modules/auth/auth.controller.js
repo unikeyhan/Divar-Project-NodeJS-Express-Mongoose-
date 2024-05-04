@@ -1,4 +1,4 @@
-const { SendOTPSuccessfully } = require('./auth.messages');
+const { SendOTPSuccessfully, LoginSuccessfully } = require('./auth.messages');
 const authService = require('./auth.service');
 const autoBind = require('auto-bind');
 
@@ -21,7 +21,11 @@ class AuthController {
     }
     async checkOTP(req, res, next) {
         try {
-            this.#service.sendOTP();
+            const { mobile, code } = req.body;
+            await this.#service.checkOTP(mobile, code);
+            return res.json({
+                message: LoginSuccessfully,
+            });
         } catch (error) {
             next(error);
         }
