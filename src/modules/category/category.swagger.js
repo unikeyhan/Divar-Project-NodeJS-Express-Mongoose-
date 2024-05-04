@@ -11,7 +11,7 @@
  *      schemas:
  *          CreateCategory:
  *              type: object
- *              reqired:
+ *              required:
  *                  -   name
  *                  -   icon
  *              properties:
@@ -49,7 +49,7 @@
  *      summary: get all categuries
  *      tags:
  *          -   Category
- *      response:
+ *      responses:
  *          200:
  *              description: successfully
  */
