@@ -6,6 +6,6 @@ const { CategoryRouter } = require('./modules/category/category.routes');
 const mainRouter = Router();
 mainRouter.use('/auth', AuthRouter);
 mainRouter.use('/user', UserRouter);
-mainRouter.use('/user', CategoryRouter);
+mainRouter.use('/category', CategoryRouter);
 
 module.exports = mainRouter;
