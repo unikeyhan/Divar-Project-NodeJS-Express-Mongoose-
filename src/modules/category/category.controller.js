@@ -13,7 +13,7 @@ class CategoryController {
 
     async create(req, res, next) {
         try {
-            const { name, slug, icon, parent } = res.body;
+            const { name, slug, icon, parent } = req.body;
             await this.#service.create({ name, slug, icon, parent });
             return res.status(HttpCodes.CREATED).json({
                 message: Created,
@@ -33,4 +33,4 @@ class CategoryController {
     }
 }
 
-module.exports = CategoryController();
+module.exports = new CategoryController();

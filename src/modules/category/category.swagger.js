@@ -14,6 +14,7 @@
  *              required:
  *                  -   name
  *                  -   icon
+ *                  -   slug
  *              properties:
  *                  name:
  *                      type: string
@@ -40,6 +41,9 @@
  *              application/json:
  *                  schema:
  *                      $ref: '#/components/schemas/CreateCategory'
+ *      responses:
+ *          201:
+ *              description: successfully
  */
 
 /**

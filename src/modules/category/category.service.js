@@ -2,6 +2,8 @@ const { isValidObjectId, Types } = require('mongoose');
 const CategoryModel = require('./category.model');
 const createHttpError = require('http-errors');
 const { NotFound, AlreadyExist } = require('./category.message');
+const autoBind = require('auto-bind');
+const slugify = require('slugify');
 
 class CategoryService {
     #model;
@@ -14,7 +16,7 @@ class CategoryService {
         if (categoryDto?.parent && isValidObjectId(categoryDto?.parent)) {
             const existCategory = await this.checkExistById(categoryDto.parent);
             categoryDto.parent = existCategory._id;
-            categoryDto.parents = [...new Set([existCategory._id.toString()].concat(existCategory.parents.map((id) => id.toString())).map((id) => Types.ObjectId(id)))];
+            categoryDto.parents = [...new Set([existCategory._id.toString()].concat(existCategory.parents.map((id) => id.toString())).map((id) => new Types.ObjectId(id)))];
         }
 
         if (categoryDto?.slug) {
@@ -43,6 +45,10 @@ class CategoryService {
         const category = await this.#model.findOne({ slug });
         if (category) throw new createHttpError.Conflict(AlreadyExist);
         return null;
+    }
+
+    async find() {
+        return await this.#model.find({ parent: { $exists: false } });
     }
 }
 
