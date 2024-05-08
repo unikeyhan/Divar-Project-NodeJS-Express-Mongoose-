@@ -1,4 +1,4 @@
-const { Schema, Types } = require('mongoose');
+const { Schema, Types, model } = require('mongoose');
 
 const OptionSchema = new Schema({
     title: { type: String, required: true },
@@ -9,4 +9,6 @@ const OptionSchema = new Schema({
     category: { type: Types.ObjectId, ref: 'Category', required: true },
 });
 
-const OptionModel = Model('Option', OptionSchema);
+const OptionModel = model('Option', OptionSchema);
+
+module.exports = { OptionModel };
