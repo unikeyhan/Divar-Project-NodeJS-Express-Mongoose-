@@ -5,14 +5,14 @@ const CategorySchmea = new Schema(
         name: { type: String, required: true },
         slug: { type: String, required: true, index: true },
         icon: { type: String, required: true },
-        parent: { type: Types.ObjectId, ref: 'category', required: false },
-        parents: { type: [Types.ObjectId], ref: 'category', required: false, default: [] },
+        parent: { type: Types.ObjectId, ref: 'Category', required: false },
+        parents: { type: [Types.ObjectId], ref: 'Category', required: false, default: [] },
     },
     { versionKey: false, id: false, toJSON: { virtuals: true } }
 );
 
 CategorySchmea.virtual('children', {
-    ref: 'category',
+    ref: 'Category',
     localField: '_id',
     foreignField: 'parent',
 });
@@ -23,6 +23,6 @@ function autoPopulate(next) {
 }
 CategorySchmea.pre('find', autoPopulate).pre('findOne', autoPopulate);
 
-const CategoryModel = model('category', CategorySchmea);
+const CategoryModel = model('Category', CategorySchmea);
 
 module.exports = CategoryModel;
