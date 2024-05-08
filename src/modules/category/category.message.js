@@ -1,5 +1,5 @@
 module.exports = Object.freeze({
     Created: 'create category successfully',
-    NotFound: 'categury not found',
-    AlreadyExist: 'categury already exist',
+    NotFound: 'category not found',
+    AlreadyExist: 'category already exist',
 });
