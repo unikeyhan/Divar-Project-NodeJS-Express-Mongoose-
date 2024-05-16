@@ -29,7 +29,7 @@
  *                          -   array
  *                          -   boolean
  *                  enum:
- *                      type: string
+ *                      type: array
  *                      items:
  *                          type: string
  *                  guide:
