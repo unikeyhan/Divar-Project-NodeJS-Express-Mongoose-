@@ -26,10 +26,56 @@ class OptionService {
         return option;
     }
 
-    async checkCategoryExistById(id) {
-        const category = await this.#categoryModel.findById(id);
-        if (!category) throw new createHttpError.NotFound(NotFound);
-        return category;
+    async find() {
+        const options = await this.#model.find({}, { __v: 0 }, { sort: { _id: -1 } }).populate([{ path: 'category', select: ['name', 'slug'] }]);
+        return options;
+    }
+
+    async findByCategoryId(category) {
+        return await this.#model.find({ category }, { __v: 0 }).populate([{ path: 'category', select: { name: 1, slug: 1 } }]);
+    }
+
+    async findByCategorySlug(slug) {
+        return await this.#model.aggregate([
+            {
+                $lookup: {
+                    from: 'categories',
+                    localField: 'category',
+                    foreignField: '_id',
+                    as: 'category',
+                },
+            },
+            {
+                $unwind: '$category',
+            },
+            {
+                $addFields: {
+                    categoryName: '$category.name',
+                    categoryIcon: '$category.icon',
+                    categorySlug: '$category.slug',
+                },
+            },
+            {
+                $project: {
+                    // 'category.parent': 0,
+                    // 'category.parents': 0,
+                    // 'category.__v': 0,
+                    // 'category._id': 0,
+                    // 'category.slug': 0,
+                    category: 0,
+                    __v: 0,
+                },
+            },
+            {
+                $match: {
+                    categorySlug: slug,
+                },
+            },
+        ]);
+    }
+
+    async findById(id) {
+        return this.checkOptionExistById(id);
     }
 
     async alreadyExistByCategoryAndKey(category, key) {
@@ -38,7 +84,17 @@ class OptionService {
         return null;
     }
 
-    async find() {}
+    async checkCategoryExistById(id) {
+        const category = await this.#categoryModel.findById(id);
+        if (!category) throw new createHttpError.NotFound(NotFound);
+        return category;
+    }
+
+    async checkOptionExistById(id) {
+        const option = await this.#model.findById(id);
+        if (!option) throw new createHttpError.NotFound(NotFound);
+        return option;
+    }
 }
 
 module.exports = new OptionService();

@@ -72,15 +72,31 @@
 
 /**
  * @swagger
- * /option/by-category/{categoryId}:
+ * /option/by-category-id/{categoryId}:
  *  get:
- *      summary: get options by category Id
+ *      summary: get category options by categoryId
  *      tags:
  *          -   Option
  *      parameters:
  *          -   in: path
- *          -   name: categoryId
- *          -   type: string
+ *              name: categoryId
+ *              type: string
+ *      responses:
+ *          200:
+ *              description: successfully
+ */
+
+/**
+ * @swagger
+ * /option/by-category-slug/{slug}:
+ *  get:
+ *      summary: get category options by slug
+ *      tags:
+ *          -   Option
+ *      parameters:
+ *          -   in: path
+ *              name: slug
+ *              type: string
  *      responses:
  *          200:
  *              description: successfully

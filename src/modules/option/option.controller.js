@@ -21,20 +21,46 @@ class OptionController {
             next(err);
         }
     }
-    async findByCategory(req, res, next) {
+
+    async findByCategoryId(req, res, next) {
         try {
+            const { categoryId } = req.params;
+            const options = await this.#service.findByCategoryId(categoryId);
+            return res.json({
+                options,
+            });
         } catch (err) {
             next(err);
         }
     }
+    async findByCategorySlug(req, res, next) {
+        try {
+            const { slug } = req.params;
+            const options = await this.#service.findByCategorySlug(slug);
+            return res.json({
+                options,
+            });
+        } catch (err) {
+            next(err);
+        }
+    }
+
     async findById(req, res, next) {
         try {
+            const { id } = req.params;
+            const option = await this.#service.findById(id);
+            return res.json({
+                option,
+            });
         } catch (err) {
             next(err);
         }
     }
+
     async find(req, res, next) {
         try {
+            const options = await this.#service.find();
+            return res.json(options);
         } catch (err) {
             next(err);
         }
