@@ -1,7 +1,7 @@
 const autoBind = require('auto-bind');
 const optionService = require('./option.service');
 const httpCodes = require('http-codes');
-const { Created } = require('./option.message');
+const { Created, Deleted } = require('./option.message');
 
 class OptionController {
     #service;
@@ -51,6 +51,18 @@ class OptionController {
             const option = await this.#service.findById(id);
             return res.json({
                 option,
+            });
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async removeById(req, res, next) {
+        try {
+            const { id } = req.params;
+            await this.#service.removeById(id);
+            return res.json({
+                message: Deleted,
             });
         } catch (err) {
             next(err);
