@@ -26,7 +26,7 @@ class OptionController {
             const { title, key, type, enum: list, guide, required, category } = req.body;
             const { id } = req.params;
             await this.#service.update(id, { title, key, type, enum: list, guide, required, category });
-            return json({
+            return res.json({
                 message: Updated,
             });
         } catch (err) {
