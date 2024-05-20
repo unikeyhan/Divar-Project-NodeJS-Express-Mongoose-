@@ -42,6 +42,36 @@
 
 /**
  * @swagger
+ *  components:
+ *      schemas:
+ *          UpdateOption:
+ *              type: object
+ *              properties:
+ *                  title:
+ *                      type: string
+ *                  key:
+ *                      type: string
+ *                  type:
+ *                      type: string
+ *                      enum:
+ *                          -   number
+ *                          -   string
+ *                          -   array
+ *                          -   boolean
+ *                  enum:
+ *                      type: array
+ *                      items:
+ *                          type: string
+ *                  guide:
+ *                      type: string
+ *                  required:
+ *                      type: boolean
+ *                  category:
+ *                      type: string
+ */
+
+/**
+ * @swagger
  * /option:
  *  post:
  *      summary: create new option
@@ -57,6 +87,25 @@
  *                      $ref: '#/components/schemas/CreateOption'
  *      responses:
  *          201:
+ *              description: successfully
+ */
+/**
+ * @swagger
+ * /option/{id}:
+ *  put:
+ *      summary: update option by id
+ *      tags:
+ *          -   Option
+ *      requestBody:
+ *          content:
+ *              application/x-www-form-urlencoded:
+ *                  schema:
+ *                      $ref: '#/components/schemas/UpdateOption'
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/UpdateOption'
+ *      responses:
+ *          200:
  *              description: successfully
  */
 

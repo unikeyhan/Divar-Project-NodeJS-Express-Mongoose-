@@ -1,7 +1,7 @@
 const autoBind = require('auto-bind');
 const optionService = require('./option.service');
 const httpCodes = require('http-codes');
-const { Created, Deleted } = require('./option.message');
+const { Created, Deleted, Updated } = require('./option.message');
 
 class OptionController {
     #service;
@@ -12,10 +12,22 @@ class OptionController {
 
     async create(req, res, next) {
         try {
-            const { title, key, type, enum: list, guide, category } = req.body;
-            await this.#service.create({ title, key, type, enum: list, guide, category });
+            const { title, key, type, enum: list, guide, required, category } = req.body;
+            await this.#service.create({ title, key, type, enum: list, guide, required, category });
             return res.status(httpCodes.CREATED).json({
                 message: Created,
+            });
+        } catch (err) {
+            next(err);
+        }
+    }
+    async update(req, res, next) {
+        try {
+            const { title, key, type, enum: list, guide, required, category } = req.body;
+            const { id } = req.params;
+            await this.#service.update(id, { title, key, type, enum: list, guide, required, category });
+            return json({
+                message: Updated,
             });
         } catch (err) {
             next(err);

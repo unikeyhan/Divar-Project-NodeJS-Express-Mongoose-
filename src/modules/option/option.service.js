@@ -4,6 +4,8 @@ const autoBind = require('auto-bind');
 const createHttpError = require('http-errors');
 const { NotFound, AlreadyExist } = require('./option.message');
 const { default: slugify } = require('slugify');
+const { isTrue } = require('../../common/utils/function');
+const { isValidObjectId } = require('mongoose');
 
 class OptionService {
     #model;
@@ -22,8 +24,37 @@ class OptionService {
         if (opitonDto?.enum && typeof opitonDto.enum === 'string') {
             opitonDto.enum = opitonDto.enum.split(',');
         } else if (!Array.isArray(opitonDto.enum)) opitonDto.enum = [];
+        if (isTrue(opitonDto.required)) {
+            opitonDto.required = true;
+        } else {
+            opitonDto.required = false;
+        }
         const option = await this.#model.create(opitonDto);
         return option;
+    }
+    async update(id, opitonDto) {
+        const existOption = await this.checkOptionExistById(id);
+        if (opitonDto.category && isValidObjectId(opitonDto.category)) {
+            const category = await this.checkCategoryExistById(opitonDto.category);
+            opitonDto.category = category._id;
+        } else {
+            delete opitonDto.category;
+        }
+        if (opitonDto.slug) {
+            opitonDto.key = slugify(opitonDto.key, { trim: true, replacement: '_', lower: true });
+            let categoryId = existOption.category;
+            if (existOption.category) categoryId = opitonDto.category;
+            await this.alreadyExistByCategoryAndKey(categoryId, opitonDto.key);
+        }
+        if (opitonDto?.enum && typeof opitonDto.enum === 'string') {
+            opitonDto.enum = opitonDto.enum.split(',');
+        } else if (!Array.isArray(opitonDto.enum)) delete opitonDto.enum;
+        if (opitonDto.required && isTrue(opitonDto.required)) {
+            opitonDto.required = true;
+        } else {
+            opitonDto.required = false;
+        }
+        return await this.#model.updateOne({ _id: id }, { $set: opitonDto });
     }
 
     async find() {
