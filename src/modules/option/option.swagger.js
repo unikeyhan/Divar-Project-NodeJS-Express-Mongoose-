@@ -34,6 +34,8 @@
  *                          type: string
  *                  guide:
  *                      type: string
+ *                  required:
+ *                      type: boolean
  *                  category:
  *                      type: string
  */
