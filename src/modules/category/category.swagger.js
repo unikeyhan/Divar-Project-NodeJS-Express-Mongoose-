@@ -57,3 +57,17 @@
  *          200:
  *              description: successfully
  */
+/**
+ * @swagger
+ * /category/{id}:
+ *  delete:
+ *      summary: delete categury by id
+ *      tags:
+ *          -   Category
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *      responses:
+ *          200:
+ *              description: successfully
+ */
