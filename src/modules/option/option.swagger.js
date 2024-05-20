@@ -104,6 +104,10 @@
  *              application/json:
  *                  schema:
  *                      $ref: '#/components/schemas/UpdateOption'
+ *      parameters:
+ *          -   in: path
+ *              name: id
+ *              type: string
  *      responses:
  *          200:
  *              description: successfully
