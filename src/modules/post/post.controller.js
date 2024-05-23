@@ -4,7 +4,7 @@ const postService = require("./post.service");
 const CategoryModel = require("../category/category.model");
 const createHttpError = require("http-errors");
 const {Types} = require("mongoose");
-const {removePropertyInObject} = require("../../common/utils/functions");
+const {removePropertyInObject} = require("../../common/utils/function");
 const {getAddressDetail} = require("../../common/utils/http");
 const utf8 = require("utf8");
 

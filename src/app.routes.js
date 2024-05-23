@@ -4,6 +4,7 @@ const { UserRouter } = require('./modules/users/user.routes');
 const { CategoryRouter } = require('./modules/category/category.routes');
 const { OptionRouter } = require('./modules/option/option.routes');
 const { PostRouter } = require('./modules/post/post.routes');
+const postController = require('./modules/post/post.controller');
 
 const mainRouter = Router();
 mainRouter.use('/auth', AuthRouter);
